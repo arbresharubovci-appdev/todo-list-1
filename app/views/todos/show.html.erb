@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Todo #<%= @the_todo.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/todos">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_todo/<%= @the_todo.id %>">
+          Delete todo
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Next up
+      </dt>
+      <dd>
+        <%= @the_todo.next_up %>
+      </dd>
+
+      <dt>
+        In progress
+      </dt>
+      <dd>
+        <%= @the_todo.in_progress %>
+      </dd>
+
+      <dt>
+        Done
+      </dt>
+      <dd>
+        <%= @the_todo.done %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_todo.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_todo.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit todo
+    </h2>
+
+    <form action="/modify_todo/<%= @the_todo.id %>"  method="post" >
+      <div>
+        <label for="next_up_box">
+          Next up
+        </label>
+
+        <input type="text" id="next_up_box" name="query_next_up" value="<%= @the_todo.next_up %>">
+      </div>
+
+      <div>
+        <label for="in_progress_box">
+          In progress
+        </label>
+
+        <input type="text" id="in_progress_box" name="query_in_progress" value="<%= @the_todo.in_progress %>">
+      </div>
+
+      <div>
+        <label for="done_box">
+          Done
+        </label>
+
+        <input type="text" id="done_box" name="query_done" value="<%= @the_todo.done %>">
+      </div>
+
+      <button>
+        Update todo
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
