@@ -10,4 +10,5 @@
 #  user_id    :integer
 #
 class Todo < ApplicationRecord
+ 
 end
