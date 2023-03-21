@@ -1,82 +1,89 @@
  <div>
-    <h1>
-      Your todo list
-    </h1>
-  </div>
+  <h1>
+    Your todo list
+  </h1>
+</div>
 
 
-  <div>
-    <h2>
-      Add a new todo
-    </h2>
+<div>
+  <h2>
+    Add a new todo
+  </h2>
 
   <form action="/insert_todo" method="post">
-      <div>
-        <label for="content_box">Describe the task:</label>
-        <input type="text" id="content_box" name="query_content">
-        <input type="hidden" id="status_box" name="query_status" value="next_up">
-      </div>
+    <div>
+      <label for="content_box">Describe the task:</label>
+      <input type="text" id="content_box" name="query_content">
+      <input type="hidden" id="status_box" name="query_status" value="next_up">
+    </div>
+    <form>
     <button>Add to Next Up</button>
-     
-  <div class="next_up">
-  <h2>Next Up</h2>
-  <ul>
-  <%# Todo.all.order({ :created_at => :desc }).each do |a_todo|%>
-  <% @list_of_todos.each do |a_todo| %>
-  <%# if a_todo.status == "next_up" %>
-  <li>
-  <%= a_todo.content %>
-     <a href="/delete_todo/<%= a_todo.id %>">Delete</a>
-     <small>Started <%= time_ago_in_words(a_todo.updated_at) %> ago
-   <form action="/modify_todo/<%= a_todo.id %>" method="post">
-   <input type="hidden" name="query_status" value="in_progress">
-   
-   <button>Move to In Progress</button>
+    </form>
   </form>
-  </li>
-  <% end %>
-  
- 
-  </ul>
+  <div class="next_up">
+    <h2>Next Up</h2>
+    <% @list_of_next_up.each do | a_todo|%>
+    <ul>
+      <li>
+      <% if a_todo.status == "next_up" %>
+        <div><%= a_todo.content%></div>
+        <small>
+          Added <%= time_ago_in_words(a_todo.updated_at) %> ago <a href="/delete_todo/<%= a_todo.id %>">Delete</a>
+        </small>
+        <form action="/modify_todo/<%= a_todo.id %>" method="post">
+          <input type="hidden" name="query_status" value="in_progress">
+          <button>Move to In Progress</button>
+        </form>
+      <% end %>
+      </li>
+    </ul>
+    <% end %>
   </div>
+
+
+<%# Todo.all.order({ :created_at => :desc }).each do |a_todo|%>
+<%# @list_of_todos.each do |a_todo| %>
+<%# if a_todo.status == "next_up" %>
+<%#= a_todo.content %>
+  
 
 <div class="in_progress">
-<h2>In Progress</h2>
-<ul>
-<% @list_of_todos.each do |a_todo| %>
-<% if a_todo.status == "in_progress" %>
-<li>
-<%= a_todo.content %><br>
-<small>Started <%= time_ago_in_words(a_todo.updated_at) %> ago
-<a href="/delete_todo/<%= a_todo.id %>">Delete</a></small>
-<form action="/modify_todo/<%= a_todo.id %>" method="post">
-  <input type="hidden" name="query_status" value="done">
-  <button>Move to Done</button>
-</form>
-</li>
-<% end %>
-<% end %>
-</ul>
+  <h2>In Progress</h2>
+  <% @list_of_todos_progress.each do |a_todo | %>
+    <ul>
+      <li>
+      <% if a_todo.status == "in_progress" %>
+      <div><%= a_todo.content %></div>
+      <small>Started <%= time_ago_in_words(a_todo.updated_at) %> ago
+        <a href="/delete_todo/<%= a_todo.id %>">Delete</a></small>
+        <form action="/modify_todo/<%= a_todo.id %>" method="post">
+          <input type="hidden" name="query_status" value="done">
+          <button>Move to Done</button>
+        </form>
+      <%# @list_of_todos.each do |a_todo| %>
+      <%# if a_todo.status == "in_progress" %>
+      <%#= a_todo.content %>
+      </li>
+      <% end %>
+    </ul>
+  <% end %>     
 </div>
 
-  
-  
-  
-  
-  <div class="done">
+
+<div class="done">
   <h2>Done</h2>
+    <% @done.each do |a_todo | %>
   <ul>
-   <% @list_of_todos.each do |a_todo| %>
-  <% if a_todo.status == "done" %>
-  <li>
-<%= a_todo.content %><br>
-<small>Started <%= time_ago_in_words(a_todo.updated_at) %> ago
-  <a href="/delete_todo/<%= a_todo.id %>">Delete</a></small>
-
- </li>
-<% end %>
-<% end %>
-</ul>
-</div>
+    <li>
+      <div><%= a_todo.content %></div>
+      <small>Completed at <%= a_todo.updated_at.strftime("%l:%M%P on %d-%b-%Y") %> ago
+        <a href="/delete_todo/<%= a_todo.id %>">Delete</a>
+      </small>
+    </li>
+  </ul>
+  <% end %>
   </div>
+  <%# @list_of_todos.each do |a_todo| %>
+  <%# if a_todo.status == "done" %>
+<%#= a_todo.content %>
 </div>

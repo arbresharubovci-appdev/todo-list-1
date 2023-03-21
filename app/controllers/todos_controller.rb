@@ -1,10 +1,18 @@
 class TodosController < ApplicationController
   def index
-    matching_todos = Todo.all
-
-    @list_of_todos = matching_todos.order({ :created_at => :desc })
+    
+    matching_todos = Todo.where({:user_id => session.fetch(:user_id) })
+    
+    @list_of_todos = matching_todos.order({:created_at => :desc })
+    @list_of_next_up = matching_todos.where({ :status => "next_up"})
+    @list_of_todos_progress = matching_todos.where({ :status => "in_progress"})
+    @done = matching_todos.where({:status => "done"})
 
     render({ :template => "todos/index.html.erb" })
+    
+    #matching_todos = Todo.all
+    #@list_of_todos = matching_todos.order({ :created_at => :desc })
+    #render({ :template => "todos/index.html.erb" })
   end
 
   def show
@@ -36,14 +44,13 @@ class TodosController < ApplicationController
     the_todo = Todo.where({ :id => the_id }).at(0)
 
     the_todo.status = params.fetch("query_status")
-    the_todo.content = params.fetch("query_content")
-    the_todo.user_id = params.fetch("query_user_id")
+    # the_todo.content = params.fetch("query_content")
+    # the_todo.user_id = params.fetch("query_user_id")
 
-    if the_todo.valid?
-      the_todo.save
-      redirect_to("/todos/#{the_todo.id}", { :notice => "Todo updated successfully."} )
+    if the_todo.save
+      redirect_to("/todos", { :notice => "Todo updated successfully."} )
     else
-      redirect_to("/todos/#{the_todo.id}", { :alert => the_todo.errors.full_messages.to_sentence })
+      redirect_to("/todos", { :alert => the_todo.errors.full_messages.to_sentence })
     end
   end
 
