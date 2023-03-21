@@ -65,13 +65,18 @@
   
   <div class="done">
   <h2>Done</h2>
-  <a href="/delete_todo/:path_id">Delete</a>
+  <ul>
+   <% @list_of_todos.each do |a_todo| %>
+  <% if a_todo.status == "done" %>
+  <li>
+<%= a_todo.content %><br>
+<small>Started <%= time_ago_in_words(a_todo.updated_at) %> ago
+  <a href="/delete_todo/<%= a_todo.id %>">Delete</a></small>
 
-     
-      
-      
-
+ </li>
+<% end %>
+<% end %>
+</ul>
+</div>
   </div>
 </div>
-
-<hr>
