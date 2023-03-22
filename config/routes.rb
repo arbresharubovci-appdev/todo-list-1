@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  get("/", { :controller => "todos", :action => "index" })
 
   # Routes for the Todo resource:
 
@@ -9,8 +9,6 @@ Rails.application.routes.draw do
           
   # READ
   get("/todos", { :controller => "todos", :action => "index" })
-
-  get("/", { :controller => "todos", :action => "index" })
   
   get("/todos/:path_id", { :controller => "todos", :action => "show" })
   
@@ -47,7 +45,8 @@ Rails.application.routes.draw do
   
   # SIGN OUT        
   get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
-             
+
+           
   #------------------------------
 
 end

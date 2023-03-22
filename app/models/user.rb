@@ -12,7 +12,7 @@
 #
 class User < ApplicationRecord
 
- 
+  #has_many(:todos, { :class_name => "Todo", :foreign_key => "user_id", :dependent => :destroy })
   
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true

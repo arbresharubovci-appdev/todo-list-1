@@ -41,16 +41,16 @@ class UserAuthenticationController < ApplicationController
     @user.email = params.fetch("query_email")
     @user.password = params.fetch("query_password")
     @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.first_name = params.fetch("query_first_name")
-    @user.last_name = params.fetch("query_last_name")
-    @user.todos_count = params.fetch("query_todos_count")
+    # @user.first_name = params.fetch("query_first_name")
+    # @user.last_name = params.fetch("query_last_name")
+    # @user.todos_count = params.fetch("query_todos_count")
 
     save_status = @user.save
 
     if save_status == true
       session[:user_id] = @user.id
    
-      redirect_to("/", { :notice => "User account created successfully."})
+      redirect_to("/todos", { :notice => "User account created successfully."})
     else
       redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })
     end
