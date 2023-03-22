@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force users to sign in before any other actions.
-  # skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -50,7 +50,7 @@ class UserAuthenticationController < ApplicationController
     if save_status == true
       session[:user_id] = @user.id
    
-      redirect_to("/todos", { :notice => "User account created successfully."})
+      redirect_to("/", { :notice => "User account created successfully."})
     else
       redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })
     end

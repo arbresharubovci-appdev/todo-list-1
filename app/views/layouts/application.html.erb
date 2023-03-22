@@ -15,7 +15,7 @@
 
   </head>
 
-  <% if @current_user == nil %>
+  <% if session[:user_id] == nil %>
 <div>
 <a href="/user_sign_in">Sign in</a> | <a href="/user_sign_up">Sign up</a>
 </div>
